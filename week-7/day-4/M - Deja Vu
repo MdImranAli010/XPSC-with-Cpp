@@ -1,0 +1,70 @@
+// Author: Md. Imran Ali
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, m;
+vector<long long> a, b;
+
+long long pow(long long x, long long power, long long result){
+    if(power==0LL){
+        return 1LL;
+    }
+
+    result=pow(x, power/2LL, result);
+
+    if(power%2LL==1LL){
+        return result*result*x;
+    }
+    else{
+        return result*result;
+    }
+}
+
+void Deja_Vu() {
+    vector<long long> vec;
+
+    for(int i=0; i<m; i++){
+        if(vec.empty() || vec.back()>b[i]){
+            vec.push_back(b[i]);
+        }
+    }
+
+    for(int i=0; i<n; i++){
+        for(long long j : vec){
+            if(a[i]% pow(2LL, j, 1LL) == 0LL){
+                a[i] += pow(2LL, j-1, 1LL);
+            }
+        }
+    }
+
+    for(long long i : a){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+}
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        cin>>n>>m;
+
+        a.resize(n);
+        b.resize(m);
+
+        for(int i=0; i<n; i++){
+            cin>>a[i];
+        }
+
+        for(int i=0; i<m; i++){
+            cin>>b[i];
+        }
+
+        Deja_Vu();
+    }
+
+    return 0;
+}
