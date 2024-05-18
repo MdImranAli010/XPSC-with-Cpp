@@ -1,0 +1,41 @@
+// Author: Md. Imran Ali
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+const int mx_N = 5000;
+
+int N, X;
+pair<int, int> a[mx_N];
+
+int main() {
+    cin >> N >> X;
+    for (int i = 0; i < N; i++) {
+        int v;
+        cin >> v;
+        a[i] = {v, i + 1};
+    }
+
+    sort(a, a + N);
+
+    for (int i = 0; i < N; i++) {
+        int curr_sum = X - a[i].first;
+        int left = i + 1, right = N - 1;
+        while (left < right) {
+            int sum = a[left].first + a[right].first;
+            if (sum == curr_sum) {
+                cout << a[i].second << " " << a[left].second << " " << a[right].second << endl;
+                return 0;
+            }
+            if (sum < curr_sum) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+    }
+
+    cout << "IMPOSSIBLE" << endl;
+    return 0;
+}
